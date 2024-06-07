@@ -1,0 +1,4 @@
+{
+    "name": "retdec-config-patch",
+    "build": { "dockerfile": "Dockerfile" }
+}
