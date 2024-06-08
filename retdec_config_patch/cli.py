@@ -1,5 +1,6 @@
 # IMPORTS
 import sys
+from pathlib import Path
 
 import click
 
@@ -11,6 +12,11 @@ def patch_check():
     """
     Runs checks on the system to see whether the patch would work.
     """
+
+    import os
+    print(__file__)
+    print(__name__)
+    print(Path(__file__).parent.resolve())
 
     if not is_retdec_available():
         click.echo("RetDec doesn't seem to be installed. The patch will NOT work.")

@@ -7,6 +7,9 @@ authors = [
     "PhotonicGluon <25820201+PhotonicGluon@users.noreply.github.com>"
 ]
 readme = "README.md"
+exclude = [
+    "retdec_config_patch/config.json"
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -21,4 +24,4 @@ Homepage = "https://github.com/PhotonicGluon/RetDec-Config-Patch"
 Issues = "https://github.com/PhotonicGluon/RetDec-Config-Patch/issues"
 
 [tool.poetry.scripts]
-retdec-config-patch-check = "cli:patch_check"
+retdec-config-patch-check = "retdec_config_patch.cli:patch_check"
