@@ -8,3 +8,5 @@ RUN apt-get update \
 # Set up virtual environment
 RUN python3 -m venv /venv --prompt RetDec-Config-Patch; chmod -R +x /venv
 RUN /venv/bin/pip install poetry
+
+ENV PYTHONPATH="$PYTHONPATH:$PWD"

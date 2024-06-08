@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "retdec-config-patch"
+version = "0.0.1"
+description = "Patch for the broken `--config` option in `retdec-decompiler`"
+license = "MIT"
+authors = [
+    "PhotonicGluon <25820201+PhotonicGluon@users.noreply.github.com>"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "~8.1.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+Homepage = "https://github.com/PhotonicGluon/RetDec-Config-Patch"
+Issues = "https://github.com/PhotonicGluon/RetDec-Config-Patch/issues"
+
+[tool.poetry.scripts]
+retdec-config-patch-check = "cli:patch_check"
