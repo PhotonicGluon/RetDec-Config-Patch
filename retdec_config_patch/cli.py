@@ -6,6 +6,7 @@ import click
 
 from retdec_config_patch.checks import is_retdec_available, is_config_file_editable
 from retdec_config_patch.config import Config
+from retdec_config_patch.decompiler import Decompiler
 from retdec_config_patch.misc import get_executable_path
 
 
@@ -25,10 +26,7 @@ def set_up_patch():
     click.secho("Checking whether patch would work...", fg="cyan")
 
     if not is_retdec_available():
-        click.echo(
-            "RetDec doesn't seem to be installed. "
-            + click.style("The patch will NOT work.", fg="red")
-        )
+        click.echo("RetDec doesn't seem to be installed. " + click.style("The patch will NOT work.", fg="red"))
         sys.exit(1)
 
     # TODO: Check if RetDec version is 5
@@ -39,12 +37,8 @@ def set_up_patch():
 
             click.echo("It appears that the decompiler config at")
             click.echo(f"\t{get_retdec_decompiler_config_path()}")
-            click.echo(
-                "cannot be edited. " + click.style("The patch will NOT work.", fg="red")
-            )
-            click.secho(
-                "Try changing the permissions of that file and try again.", fg="yellow"
-            )
+            click.echo("cannot be edited. " + click.style("The patch will NOT work.", fg="red"))
+            click.secho("Try changing the permissions of that file and try again.", fg="yellow")
             sys.exit(1)
     except FileNotFoundError:
         from retdec_config_patch.misc import get_retdec_decompiler_config_path
@@ -59,17 +53,13 @@ def set_up_patch():
     # TODO: Check if we can modify the directory containing "retdec-decompiler"
     # TODO: Check if "retdec-decompiler-patched" is available globally
 
-    click.echo(
-        "All checks complete. " + click.style("The patch SHOULD work.", fg="green")
-    )
+    click.echo("All checks complete. " + click.style("The patch SHOULD work.", fg="green"))
     click.echo()
 
     # Set up the patch
     click.secho("Setting up patch...", fg="cyan")
     orig_decompiler_path = get_executable_path("retdec-decompiler")
-    renamed_decompiler_path = os.path.join(
-        os.path.dirname(orig_decompiler_path), "retdec-decompiler-old"
-    )
+    renamed_decompiler_path = os.path.join(os.path.dirname(orig_decompiler_path), "retdec-decompiler-old")
     patched_decompiler_path = get_executable_path("retdec-decompiler-patched")
 
     os.rename(orig_decompiler_path, renamed_decompiler_path)
@@ -88,12 +78,11 @@ def undo_patch():
     Undoes the patch performed by `retdec-config-patch`.
     """
 
-
     config = Config.load()
     if config.is_empty():
         click.secho("Patch was not applied, nothing to undo.")
         return
-    
+
     click.secho("Undoing patch...", fg="cyan")
 
     symlimked_to_patched = get_executable_path("retdec-decompiler")
@@ -107,7 +96,11 @@ def undo_patch():
     click.secho("Patch undo successful.", fg="green")
 
 
-@click.command()
 def retdec_decompiler_patched():
-    # TODO: Add
-    click.echo("Patched decompiler...")
+    """
+    Runs the patched decompiler.
+    """
+
+    click.secho("Using patched RetDec decompiler.", fg="green", bold=True)
+    decompiler = Decompiler()
+    decompiler.execute()

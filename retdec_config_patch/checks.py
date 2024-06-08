@@ -37,7 +37,7 @@ def is_config_file_editable() -> bool:
     # Does the config file exist?
     if not os.path.isfile(config_file_path):
         raise FileNotFoundError("Decompiler config file cannot be found")
-    
+
     # Can we write to it?
     return os.access(config_file_path, os.W_OK)
 

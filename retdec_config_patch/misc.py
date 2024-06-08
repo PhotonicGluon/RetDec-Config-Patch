@@ -69,13 +69,8 @@ def get_executable_path(executable: str) -> os.PathLike[str]:
         command = f"where.exe {executable}"
     else:
         raise Exception(f"'{platform}' not supported")
-    
-    output = subprocess.run(
-        command,
-        shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
+
+    output = subprocess.run(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if output.returncode != 0:
         raise FileNotFoundError(f"'{executable}' cannot be located")

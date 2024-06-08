@@ -3,8 +3,10 @@ import json
 import os
 from typing import Dict, Any
 
+from retdec_config_patch.misc import get_retdec_share_folder
+
 # CONSTANTS
-CONFIG_FILE = "config.json"
+CONFIG_FILE = os.path.abspath(os.path.join(get_retdec_share_folder(), "patch-config.json"))
 
 
 # CLASSES
