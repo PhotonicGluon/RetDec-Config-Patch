@@ -4,7 +4,13 @@ import sys
 
 import click
 
-from retdec_config_patch.checks import is_retdec_available, is_config_file_editable
+from retdec_config_patch.checks import (
+    is_retdec_available,
+    is_retdec_version_compatible,
+    is_retdec_share_folder_writable,
+    is_config_file_editable,
+    is_patcher_available_globally,
+)
 from retdec_config_patch.config import Config
 from retdec_config_patch.decompiler import Decompiler
 from retdec_config_patch.misc import get_executable_path
@@ -29,7 +35,13 @@ def set_up_patch():
         click.echo("RetDec doesn't seem to be installed. " + click.style("The patch will NOT work.", fg="red"))
         sys.exit(1)
 
-    # TODO: Check if RetDec version is 5
+    if not is_retdec_version_compatible():
+        click.echo("RetDec version incompatible. " + click.style("The patch will NOT work.", fg="red"))
+        sys.exit(1)
+
+    if not is_retdec_share_folder_writable():
+        click.echo("RetDec share folder not writable. " + click.style("The patch will NOT work.", fg="red"))
+        sys.exit(1)
 
     try:
         if not is_config_file_editable():
@@ -49,9 +61,9 @@ def set_up_patch():
         click.secho("Please check your installation.", fg="yellow")
         sys.exit(1)
 
-    # TODO: Check if we have permissions to rename "retdec-decompiler"
-    # TODO: Check if we can modify the directory containing "retdec-decompiler"
-    # TODO: Check if "retdec-decompiler-patched" is available globally
+    if not is_patcher_available_globally():
+        click.echo("RetDec patcher not available globally. " + click.style("The patch will NOT work.", fg="red"))
+        sys.exit(1)
 
     click.echo("All checks complete. " + click.style("The patch SHOULD work.", fg="green"))
     click.echo()
@@ -93,7 +105,7 @@ def undo_patch():
 
     config.remove()
 
-    click.secho("Patch undo successful.", fg="green")
+    click.secho("Patch undo successful!", fg="green")
 
 
 def retdec_decompiler_patched():
