@@ -83,6 +83,15 @@ class Config:
         with open(filepath, "w") as f:
             json.dump(config_dict, f)
 
+    def remove(self, filepath: os.PathLike[str] = CONFIG_FILE):
+        """
+        Removes the configuration file.
+
+        :param filepath: path to the configuration file
+        """
+
+        os.remove(filepath)
+
 
 # DEBUG CODE
 if __name__ == "__main__":

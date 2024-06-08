@@ -26,6 +26,8 @@ def set_up_patch():
         )
         sys.exit(1)
 
+    # TODO: Check if RetDec version is 5
+
     try:
         if not is_config_file_editable():
             from retdec_config_patch.misc import get_retdec_decompiler_config_path
@@ -82,6 +84,8 @@ def undo_patch():
     Undoes the patch performed by `retdec-config-patch`.
     """
 
+    click.secho("Undoing patch...", fg="cyan")
+
     config = Config.load()
 
     symlimked_to_patched = get_executable_path("retdec-decompiler")
@@ -89,6 +93,8 @@ def undo_patch():
 
     os.remove(symlimked_to_patched)
     os.rename(orig_decompiler_path, symlimked_to_patched)
+
+    config.remove()
 
     click.secho("Patch undo successful.", fg="green")
 
