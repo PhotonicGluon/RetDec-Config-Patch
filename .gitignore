@@ -164,4 +164,4 @@ cython_debug/
 # Others
 venv*
 
-retdec_config_patch/config.json
+config.json

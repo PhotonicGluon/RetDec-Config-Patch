@@ -25,7 +25,7 @@ class Config:
     # Magic methods
     def __repr__(self) -> str:
         return "<RetDec Configuration>"
-    
+
     def __str__(self) -> str:
         return str(self._serialize())
 
@@ -55,15 +55,21 @@ class Config:
         """
         Loads configuration from a JSON file.
 
+        If no file is found, loads empty config.
+
         :param filepath: path to the configuration file
         :return: loaded configuration object
         """
 
-        with open(filepath, "r") as f:
-            config_dict = json.load(f)
-
         config = cls()
-        config._deserialize(config_dict)
+
+        try:
+            with open(filepath, "r") as f:
+                config_dict = json.load(f)
+                config._deserialize(config_dict)
+        except FileNotFoundError:
+            pass
+
         return config
 
     def save(self, filepath: os.PathLike[str] = CONFIG_FILE):
@@ -80,11 +86,7 @@ class Config:
 
 # DEBUG CODE
 if __name__ == "__main__":
-    try:
-        config = Config.load("retdec_config_patch/config.json")
-    except FileNotFoundError as e:
-        print(e)
-        config = Config()
+    config = Config.load("retdec_config_patch/config.json")
     print(config)
     config.retdec_binary = "testing-1234"
     print(config)

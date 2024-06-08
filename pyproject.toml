@@ -14,6 +14,7 @@ exclude = [
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "~8.1.7"
+colorama = "~0.4.6"
 
 [build-system]
 requires = ["poetry-core"]
@@ -24,4 +25,6 @@ Homepage = "https://github.com/PhotonicGluon/RetDec-Config-Patch"
 Issues = "https://github.com/PhotonicGluon/RetDec-Config-Patch/issues"
 
 [tool.poetry.scripts]
-retdec-config-patch-check = "retdec_config_patch.cli:patch_check"
+retdec-config-patch = "retdec_config_patch.cli:set_up_patch"
+undo-retdec-config-patch = "retdec_config_patch.cli:undo_patch"
+retdec-decompiler-patched = "retdec_config_patch.cli:retdec_decompiler_patched"
