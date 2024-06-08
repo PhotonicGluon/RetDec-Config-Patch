@@ -69,7 +69,7 @@ undo-retdec-config-patch
 
 The `retdec-config-patch` is licensed under the MIT license.
 
-```
+```plain
 MIT License
 
 Copyright (c) 2024 Ryan Kan
