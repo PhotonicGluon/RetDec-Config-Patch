@@ -1,10 +1,17 @@
 # RetDec-Config-Patch
 
-Patch for the broken `--config` option in `retdec-decompiler`.
+<!-- TODO: Update base URLs -->
+
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org&logo=python)
+![PyPI - Version](https://img.shields.io/pypi/v/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org&logo=pypi)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/retdec-config-patch)
+![PyPI - License](https://img.shields.io/pypi/l/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org)
+
+Patch for the broken `--config` option in [RetDec](https://github.com/avast/retdec).
 
 ## Installation
 
-You can choose to install the patch from package or building from scratch. In either case, you will still need to [activate the patch](#activatingdeactivating-the-patch).
+You can choose to install the patch from package or building from scratch. In either case, you will still need to [activate the patch](#activating-the-patch).
 
 ### Installing from Package
 
@@ -46,6 +53,8 @@ retdec-config-patch
 
 This will perform the necessary checks before implementing the patch.
 
+Once the patch is activated, you can use `retdec-decompiler` as per normal. The only difference is that the `--config` option works properly now.
+
 ### Deactivating the Patch
 
 If you want to deactivate the patch, run
@@ -53,10 +62,6 @@ If you want to deactivate the patch, run
 ```bash
 undo-retdec-config-patch
 ```
-
-## Rationale
-
-TODO: ADD
 
 ### License
 
@@ -85,3 +90,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Appendix: Rationale
+
+TODO: ADD
