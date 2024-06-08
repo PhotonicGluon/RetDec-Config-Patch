@@ -85,7 +85,8 @@ class Config:
         with open(filepath, "w") as f:
             json.dump(config_dict, f)
 
-    def remove(self, filepath: os.PathLike[str] = CONFIG_FILE):
+    @staticmethod
+    def remove(filepath: os.PathLike[str] = CONFIG_FILE):
         """
         Removes the configuration file.
 
