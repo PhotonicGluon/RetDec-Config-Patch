@@ -3,7 +3,7 @@ name: Publish Python Package (DEV)
 on:
   push:
     branches:
-      - "release"
+      - "dev-release"
 
 permissions:
   contents: read
