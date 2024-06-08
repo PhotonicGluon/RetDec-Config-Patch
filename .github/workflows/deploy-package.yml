@@ -11,8 +11,6 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/photonicgluon/retdec-docker:latest
     environment:
       name: testpypi
       url: https://test.pypi.org/p/retdec-config-patch
