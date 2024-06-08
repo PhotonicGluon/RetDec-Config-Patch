@@ -9,6 +9,8 @@
 
 Patch for the broken `--config` option in [RetDec](https://github.com/avast/retdec).
 
+The [rationale](#appendix-rationale) for why this package exists is given below.
+
 ## Installation
 
 You can choose to install the patch from package or building from scratch. In either case, you will still need to [activate the patch](#activating-the-patch).
@@ -93,4 +95,56 @@ SOFTWARE.
 
 ## Appendix: Rationale
 
-TODO: ADD
+_Why on earth does this package exist?_
+
+RetDec is a "retargetable machine-code decompiler based on LLVM". It is a very useful open-source project to help decompile binaries compiled using different architectures and on different platforms.
+
+The trouble began when one notices that `retdec-decompiler`, the main program, offers a flag `--config` with the following help description.
+
+```plain
+        [--config] Specify JSON decompilation configuration file.
+```
+
+One would assume then that we could pass in a custom configuration file in order to adjust the decompilation process. For example, one can find an [example configuration file](https://github.com/avast/retdec/blob/b283e7e3fa111764d795a75418548fcf86d6e47d/src/retdec-decompiler/decompiler-config.json) in the RetDec repository. So one tries to create a custom configuration file, say `my_config.json`, which could contain
+
+```json
+{
+    "decompParams": {
+        "verboseOut": false
+    }
+}
+```
+
+to disable verbose outputs, and then use this file in the `retdec-decompiler` by specifying the `--config` flag, i.e.
+
+```bash
+retdec-decompiler SOME_FILE --config my_config.json
+```
+
+However, _**this does not work at all**_. It appears as though _**RetDec ignores this configuration file**_ and proceeds with running through all the steps of the decompilation.
+
+So why does this happen?
+
+It turns out that in [`retdec_decompiler.cpp`](https://github.com/avast/retdec/blob/b283e7e3fa111764d795a75418548fcf86d6e47d/src/retdec-decompiler/retdec-decompiler.cpp#L995-L1000), lines 995 to 1000, there is the following code,
+
+```cpp
+    retdec::config::Config config;
+    auto binpath = retdec::utils::getThisBinaryDirectoryPath();
+    fs::path configPath(fs::canonical(binpath).parent_path());
+    configPath.append("share");
+    configPath.append("retdec");
+    configPath.append("decompiler-config.json");
+```
+
+which explains why the configuration file that we specify is ignored &mdash; the code itself is hardcoded to use the default configuration file [`decompiler-config.json`](https://github.com/avast/retdec/blob/b283e7e3fa111764d795a75418548fcf86d6e47d/src/retdec-decompiler/decompiler-config.json)!
+
+So, if we want to use our own configuration file, we need to perform the following steps.
+
+1. Locate the `/share/retdec` folder within the RetDec installation.
+2. Save the existing `decompiler-config.json` somewhere.
+3. Replace the `decompiler-config.json` there with the custom configuration file.
+4. Run `retdec-decompiler` _without_ specifying the `--config` flag (since this does nothing).
+5. Delete the `decompiler-config.json` file in the `/share/retdec` folder (which is actually the custom configuration file).
+6. Copy over the original `decompiler-config.json` (which was saved in step 2) back into the `/share/retdec` folder.
+
+These steps are what are performed by the patched `retdec-decompiler` executable provided by this package.
