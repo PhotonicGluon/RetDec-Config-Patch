@@ -92,6 +92,11 @@ class Config:
 
         os.remove(filepath)
 
+    def is_empty(self):
+        values = list(self._serialize().values())
+        is_none = [value is None for value in values]
+        return all(is_none)
+
 
 # DEBUG CODE
 if __name__ == "__main__":

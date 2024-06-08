@@ -16,6 +16,11 @@ def set_up_patch():
     Runs checks on the system to see whether the patch would work, and then sets up the patch.
     """
 
+    config = Config.load()
+    if not config.is_empty():
+        click.echo("Patch seems to have been applied already.")
+        return
+
     # Check if patch works
     click.secho("Checking whether patch would work...", fg="cyan")
 
@@ -71,7 +76,6 @@ def set_up_patch():
     os.symlink(patched_decompiler_path, orig_decompiler_path)
 
     # Write config
-    config = Config.load()
     config.retdec_binary = renamed_decompiler_path
     config.save()
 
@@ -84,9 +88,13 @@ def undo_patch():
     Undoes the patch performed by `retdec-config-patch`.
     """
 
-    click.secho("Undoing patch...", fg="cyan")
 
     config = Config.load()
+    if config.is_empty():
+        click.secho("Patch was not applied, nothing to undo.")
+        return
+    
+    click.secho("Undoing patch...", fg="cyan")
 
     symlimked_to_patched = get_executable_path("retdec-decompiler")
     orig_decompiler_path = config.retdec_binary
