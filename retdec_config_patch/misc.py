@@ -57,25 +57,31 @@ def get_executable_path(executable: str) -> os.PathLike[str]:
 
     :param executable: name of the executable
     :raises Exception: if the platform is not supported
+    :raises FileNotFoundError: if the executable cannot be located
     :return: path to the executable
     """
 
     if platform == "darwin" or platform.startswith("linux"):
-        # Try the POSIX compatible `command` command
-        # (See https://stackoverflow.com/a/677212)
-        output = subprocess.run(
-            f"command -v {executable}",
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=True,
-        )
-        return output.stdout.decode().strip()  # Remove a possible newline
+        # Try `which`
+        command = f"which {executable}"
     elif platform == "win32":
-        # TODO: Handle windows case
-        return executable
+        # Try `where.exe`
+        command = f"where.exe {executable}"
     else:
         raise Exception(f"'{platform}' not supported")
+    
+    output = subprocess.run(
+        command,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    )
+
+    if output.returncode != 0:
+        raise FileNotFoundError(f"'{executable}' cannot be located")
+
+    results = output.stdout.decode().split("\n")
+    return results[0]
 
 
 # DEBUG CODE
