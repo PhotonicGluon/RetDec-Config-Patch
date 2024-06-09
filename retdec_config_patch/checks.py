@@ -1,8 +1,9 @@
 # IMPORTS
 import os
 import subprocess
+import re
 
-from retdec_config_patch.misc import get_retdec_decompiler_config_path
+from retdec_config_patch.misc import get_retdec_decompiler_config_path, get_retdec_share_folder
 
 
 # FUNCTIONS
@@ -19,6 +20,33 @@ def is_retdec_available() -> bool:
         return False
 
     return output.returncode == 0
+
+
+def is_retdec_version_compatible() -> bool:
+    """
+    Checks if the RetDec version is compatible for applying the patch.
+
+    Specifically, this patch is compatible for Version 5 of RetDec.
+
+    :return: True if compatible and False otherwise
+    """
+
+    output = subprocess.run("retdec-decompiler --version", shell=True, stdout=subprocess.PIPE)
+    output = output.stdout.decode()
+    match = re.match(r"RetDec version\s+:\s+(?P<version>.+)", output)
+    version = match.group("version")
+    return version.startswith("v5")
+
+
+def is_retdec_share_folder_writable() -> bool:
+    """
+    Checks if the RetDec share folder is writable.
+
+    :raises ModuleNotFoundError: if cannot find `retdec-decompiler`
+    :return: True if writable and False otherwise
+    """
+
+    return os.access(get_retdec_share_folder(), os.W_OK)
 
 
 def is_config_file_editable() -> bool:
@@ -40,6 +68,17 @@ def is_config_file_editable() -> bool:
 
     # Can we write to it?
     return os.access(config_file_path, os.W_OK)
+
+
+def is_patcher_available_globally() -> bool:
+    """
+    Checks if the patcher executable is available globally.
+
+    :return: True if available and False otherwise
+    """
+
+    output = subprocess.run("retdec-config-patch --help", shell=True, capture_output=True)
+    return output.returncode == 0
 
 
 # DEBUG CODE
