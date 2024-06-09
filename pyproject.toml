@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "retdec-config-patch"
-version = "0.0.1.dev7"
+version = "0.0.1.dev8"
 description = "Patch for the broken `--config` option in `retdec-decompiler`"
 license = "MIT"
 authors = [
@@ -9,6 +9,9 @@ authors = [
 readme = "README.md"
 exclude = [
     "retdec_config_patch/config.json"
+]
+keywords = [
+    # TODO: ADD
 ]
 
 [tool.poetry.dependencies]
