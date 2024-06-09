@@ -2,10 +2,12 @@
 
 <!-- TODO: Update base URLs -->
 
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org&logo=python)
-![PyPI - Version](https://img.shields.io/pypi/v/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org&logo=pypi)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Fpypi.org&logo=python)
+[![PyPI - Version](https://img.shields.io/pypi/v/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org&logo=pypi)](https://pypi.org/project/retdec-config-patch/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/retdec-config-patch)
-![PyPI - License](https://img.shields.io/pypi/l/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Ftest.pypi.org)
+![PyPI - License](https://img.shields.io/pypi/l/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Fpypi.org)
+
+[![Publish Python Package](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/publish-package.yml/badge.svg)](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/publish-package.yml)
 
 Patch for the broken `--config` option in [RetDec](https://github.com/avast/retdec).
 
