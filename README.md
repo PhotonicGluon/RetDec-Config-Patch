@@ -1,7 +1,5 @@
 # RetDec-Config-Patch
 
-<!-- TODO: Update base URLs -->
-
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Fpypi.org&logo=python)
 [![PyPI - Version](https://img.shields.io/pypi/v/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Fpypi.org&logo=pypi)](https://pypi.org/project/retdec-config-patch/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/retdec-config-patch)
