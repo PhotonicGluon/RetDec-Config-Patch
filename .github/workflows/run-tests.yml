@@ -21,9 +21,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install RetDec
       run: |
-        apt-get update
-        apt-get install snapd -y
-        snap install retdec
+        sudo apt-get update
+        sudo apt-get install snapd -y
+        sudo snap install retdec
     - name: Install Python Dependencies
       run: |
         python -m pip install --upgrade pip
