@@ -5,15 +5,15 @@ import sys
 import click
 
 from retdec_config_patch.checks import (
-    is_retdec_available,
-    is_retdec_version_compatible,
-    is_retdec_share_folder_writable,
     is_config_file_editable,
     is_patcher_available_globally,
+    is_retdec_available,
+    is_retdec_share_folder_writable,
+    is_retdec_version_compatible,
 )
 from retdec_config_patch.config import Config
 from retdec_config_patch.decompiler import Decompiler
-from retdec_config_patch.misc import get_executable_path
+from retdec_config_patch.paths import get_executable_path
 
 
 # COMMANDS
@@ -45,7 +45,7 @@ def set_up_patch():
 
     try:
         if not is_config_file_editable():
-            from retdec_config_patch.misc import get_retdec_decompiler_config_path
+            from retdec_config_patch.paths import get_retdec_decompiler_config_path
 
             click.echo("It appears that the decompiler config at")
             click.echo(f"\t{get_retdec_decompiler_config_path()}")
@@ -53,7 +53,7 @@ def set_up_patch():
             click.secho("Try changing the permissions of that file and try again.", fg="yellow")
             sys.exit(1)
     except FileNotFoundError:
-        from retdec_config_patch.misc import get_retdec_decompiler_config_path
+        from retdec_config_patch.paths import get_retdec_decompiler_config_path
 
         click.echo("Cannot find the decompiler config at")
         click.echo(f"\t{get_retdec_decompiler_config_path()}")
@@ -114,5 +114,5 @@ def retdec_decompiler_patched():
     """
 
     click.secho("Using patched RetDec decompiler.", fg="green", bold=True)
-    decompiler = Decompiler()
-    decompiler.execute()
+    with Decompiler() as decompiler:
+        decompiler.execute()
