@@ -5,8 +5,10 @@ import subprocess
 import sys
 from argparse import ArgumentParser
 
+from filelock import FileLock
+
 from retdec_config_patch.config import Config
-from retdec_config_patch.misc import get_retdec_decompiler_config_path
+from retdec_config_patch.misc import get_retdec_decompiler_config_path, get_retdec_share_folder
 
 
 # CLASSES
@@ -20,6 +22,8 @@ class Decompiler:
         Initializes a new decompiler.
         """
 
+        self.__is_context_manager = False
+
         self.parser = ArgumentParser(add_help=False)
         self.parser.add_argument("INPUT_FILE", nargs="?", default=None)
 
@@ -31,6 +35,17 @@ class Decompiler:
 
         self.config = Config.load()
         self.retdec_binary = self.config.retdec_binary
+        self.retdec_lock = FileLock(os.path.join(get_retdec_share_folder(), "retdec-config-patch.lock"))
+
+    # Magic methods
+    def __enter__(self):
+        self.retdec_lock.acquire()
+        self.__is_context_manager = True
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.retdec_lock.release()
+        self.__is_context_manager = False
 
     # Helper methods
     def _add_args(self):
@@ -110,7 +125,19 @@ class Decompiler:
     def execute(self):
         """
         Run the decompiler with the given arguments.
+
+        :raises Exception: if the decompiler is not being run within a `with` block
         """
+
+        # Check that this is being run in a context
+        if not self.__is_context_manager:
+            raise Exception("The decompiler class should only be used with `with`")
+
+        import time
+
+        print("SLEEP")
+        time.sleep(5)
+        print("START")
 
         # Check if any of the patched arguments are provided
         if self.args.get("help"):
