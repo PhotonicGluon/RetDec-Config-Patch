@@ -1,6 +1,10 @@
 {
     "cSpell.words": [
-        "retdec"
+        "decompilation",
+        "decompiler",
+        "retdec",
+        "secho",
+        "symlimked"
     ],
     "files.eol": "\n"
 }
