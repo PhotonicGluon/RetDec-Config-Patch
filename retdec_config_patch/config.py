@@ -99,12 +99,3 @@ class Config:
         values = list(self._serialize().values())
         is_none = [value is None for value in values]
         return all(is_none)
-
-
-# DEBUG CODE
-if __name__ == "__main__":
-    config = Config.load("retdec_config_patch/config.json")
-    print(config)
-    config.retdec_binary = "testing-1234"
-    print(config)
-    config.save("retdec_config_patch/config.json")

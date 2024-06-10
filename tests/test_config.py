@@ -1,6 +1,6 @@
 # IMPORTS
-import tempfile
 import os
+import tempfile
 
 from retdec_config_patch.config import Config
 
