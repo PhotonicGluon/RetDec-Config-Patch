@@ -133,12 +133,6 @@ class Decompiler:
         if not self.__is_context_manager:
             raise Exception("The decompiler class should only be used with `with`")
 
-        import time
-
-        print("SLEEP")
-        time.sleep(5)
-        print("START")
-
         # Check if any of the patched arguments are provided
         if self.args.get("help"):
             self._show_help()
