@@ -5,6 +5,7 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/retdec-config-patch)
 ![PyPI - License](https://img.shields.io/pypi/l/retdec-config-patch?pypiBaseUrl=https%3A%2F%2Fpypi.org)
 
+[![Run Tests](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/run-tests.yml/badge.svg)](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/run-tests.yml)
 [![Publish Python Package](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/publish-package.yml/badge.svg)](https://github.com/PhotonicGluon/RetDec-Config-Patch/actions/workflows/publish-package.yml)
 
 Patch for the broken `--config` option in [RetDec](https://github.com/avast/retdec).
