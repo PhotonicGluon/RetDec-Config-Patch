@@ -1,29 +1,42 @@
 ---
 name: Bug Report
 about: Report a bug with the package
-title: "[BUG]"
 labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
+# Bug Report
+
+## Describe the Bug
+
 A clear and concise description of what the bug is.
 
-**To Reproduce**
+## Reproduction Steps
+
 Steps to reproduce the behavior:
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
+## Behavior
+
+### Expected
+
 A clear and concise description of what you expected to happen.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. Windows]
- - Version [e.g. 22H2]
- - Package Version [e.g. 0.1.0]
+### Actual
 
-**Additional context**
+What actually happens.
+
+## Client Information
+
+- **OS**: [e.g. Windows]
+- **OS Version**: [e.g. 22H2]
+- **Package Version**: [e.g. 0.1.0]
+
+## Additional Context
+
 Add any other context about the problem here.
