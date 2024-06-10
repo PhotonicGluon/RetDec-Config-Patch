@@ -53,7 +53,7 @@ class Config:
 
     # Public methods
     @classmethod
-    def load(cls, filepath: os.PathLike[str] = CONFIG_FILE) -> "Config":
+    def load(cls, filepath: os.PathLike = CONFIG_FILE) -> "Config":
         """
         Loads configuration from a JSON file.
 
@@ -74,7 +74,7 @@ class Config:
 
         return config
 
-    def save(self, filepath: os.PathLike[str] = CONFIG_FILE):
+    def save(self, filepath: os.PathLike = CONFIG_FILE):
         """
         Saves configuration to a JSON file.
 
@@ -86,7 +86,7 @@ class Config:
             json.dump(config_dict, f)
 
     @staticmethod
-    def remove(filepath: os.PathLike[str] = CONFIG_FILE):
+    def remove(filepath: os.PathLike = CONFIG_FILE):
         """
         Removes the configuration file.
 

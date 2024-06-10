@@ -7,7 +7,7 @@ from sys import platform
 
 
 # FUNCTIONS
-def get_retdec_folder() -> os.PathLike[str]:
+def get_retdec_folder() -> os.PathLike:
     """
     Gets the installation folder of RetDec.
 
@@ -23,7 +23,7 @@ def get_retdec_folder() -> os.PathLike[str]:
     return Path(path).parent.parent.absolute()  # Use `.parent` twice as first time gets bin folder only
 
 
-def get_retdec_share_folder() -> os.PathLike[str]:
+def get_retdec_share_folder() -> os.PathLike:
     """
     Gets the share folder of the RetDec installation.
 
@@ -37,7 +37,7 @@ def get_retdec_share_folder() -> os.PathLike[str]:
     return os.path.join(base_folder, "share", "retdec")
 
 
-def get_retdec_decompiler_config_path() -> os.PathLike[str]:
+def get_retdec_decompiler_config_path() -> os.PathLike:
     """
     Gets the decompiler config path of the RetDec installation.
 
@@ -51,7 +51,7 @@ def get_retdec_decompiler_config_path() -> os.PathLike[str]:
     return os.path.join(share_folder, "decompiler-config.json")
 
 
-def get_executable_path(executable: str) -> os.PathLike[str]:
+def get_executable_path(executable: str) -> os.PathLike:
     """
     An operating system independent method to get the path to an executable.
 

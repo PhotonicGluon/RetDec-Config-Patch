@@ -95,7 +95,7 @@ class Decompiler:
         # Output the help text
         print(help_text)
 
-    def _use_config_file(self, config_file: os.PathLike[str]):
+    def _use_config_file(self, config_file: os.PathLike):
         """
         Sets up the RetDec directory to properly use the configuration file specified.
 
