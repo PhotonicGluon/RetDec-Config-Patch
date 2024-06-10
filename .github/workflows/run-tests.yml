@@ -26,7 +26,7 @@ jobs:
         wget https://github.com/avast/retdec/releases/download/v5.0/RetDec-v5.0-Linux-Release.tar.xz
         sudo mkdir -p /usr/share/retdec
         sudo tar -xf RetDec-v5.0-Linux-Release.tar.xz -C /usr/share/retdec
-        sudo export PATH=/usr/share/retdec/bin:$PATH
+        echo "PATH=/usr/share/retdec/bin:$PATH" >> $GITHUB_ENV
     - name: Install Poetry
       uses: abatilo/actions-poetry@v2
     - name: Install Project Dependencies
