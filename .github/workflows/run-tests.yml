@@ -1,0 +1,39 @@
+name: Test RetDec-Config-Patch
+
+on:
+  push:
+    branches:
+      - main
+      - tests
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+    uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install RetDec
+      run: |
+        apt update
+        apt install snapd -y
+        snap install retdec
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+    - name: Install Dependencies
+      run: poetry install
+    - name: Test with pytest
+      run: |
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=retdec_config_patch --cov-report=xml --cov-report=html
+    - name: Upload Pytest Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: junit/test-results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
