@@ -14,11 +14,7 @@ def is_retdec_available() -> bool:
     :return: True if available and False otherwise
     """
 
-    try:
-        output = subprocess.run("retdec-decompiler --version", shell=True, stdout=subprocess.PIPE)
-    except FileNotFoundError:
-        return False
-
+    output = subprocess.run("retdec-decompiler --version", shell=True, stdout=subprocess.PIPE)
     return output.returncode == 0
 
 
@@ -42,7 +38,6 @@ def is_retdec_share_folder_writable() -> bool:
     """
     Checks if the RetDec share folder is writable.
 
-    :raises ModuleNotFoundError: if cannot find `retdec-decompiler`
     :return: True if writable and False otherwise
     """
 
@@ -55,7 +50,6 @@ def is_config_file_editable() -> bool:
 
     Assumes that RetDec is installed.
 
-    :raises ModuleNotFoundError: if cannot find `retdec-decompiler`
     :raises FileNotFoundError: if cannot find the decompiler configuration file
     :return: True if editable and False otherwise
     """
@@ -79,9 +73,3 @@ def is_patcher_available_globally() -> bool:
 
     output = subprocess.run("retdec-config-patch --help", shell=True, capture_output=True)
     return output.returncode == 0
-
-
-# DEBUG CODE
-if __name__ == "__main__":
-    print(is_retdec_available())
-    print(is_config_file_editable())
