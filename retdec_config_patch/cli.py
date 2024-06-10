@@ -13,7 +13,7 @@ from retdec_config_patch.checks import (
 )
 from retdec_config_patch.config import Config
 from retdec_config_patch.decompiler import Decompiler
-from retdec_config_patch.misc import get_executable_path
+from retdec_config_patch.paths import get_executable_path
 
 
 # COMMANDS
@@ -45,7 +45,7 @@ def set_up_patch():
 
     try:
         if not is_config_file_editable():
-            from retdec_config_patch.misc import get_retdec_decompiler_config_path
+            from retdec_config_patch.paths import get_retdec_decompiler_config_path
 
             click.echo("It appears that the decompiler config at")
             click.echo(f"\t{get_retdec_decompiler_config_path()}")
@@ -53,7 +53,7 @@ def set_up_patch():
             click.secho("Try changing the permissions of that file and try again.", fg="yellow")
             sys.exit(1)
     except FileNotFoundError:
-        from retdec_config_patch.misc import get_retdec_decompiler_config_path
+        from retdec_config_patch.paths import get_retdec_decompiler_config_path
 
         click.echo("Cannot find the decompiler config at")
         click.echo(f"\t{get_retdec_decompiler_config_path()}")

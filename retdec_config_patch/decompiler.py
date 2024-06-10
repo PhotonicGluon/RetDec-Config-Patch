@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from filelock import FileLock
 
 from retdec_config_patch.config import Config
-from retdec_config_patch.misc import get_retdec_decompiler_config_path, get_retdec_share_folder
+from retdec_config_patch.paths import get_retdec_decompiler_config_path, get_retdec_share_folder
 
 
 # CLASSES
