@@ -5,11 +5,11 @@ import sys
 import click
 
 from retdec_config_patch.checks import (
-    is_retdec_available,
-    is_retdec_version_compatible,
-    is_retdec_share_folder_writable,
     is_config_file_editable,
     is_patcher_available_globally,
+    is_retdec_available,
+    is_retdec_share_folder_writable,
+    is_retdec_version_compatible,
 )
 from retdec_config_patch.config import Config
 from retdec_config_patch.decompiler import Decompiler

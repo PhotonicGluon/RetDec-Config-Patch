@@ -1,7 +1,7 @@
 # IMPORTS
 import json
 import os
-from typing import Dict, Any
+from typing import Any, Dict
 
 from retdec_config_patch.misc import get_retdec_share_folder
 

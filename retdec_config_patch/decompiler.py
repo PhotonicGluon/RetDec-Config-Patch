@@ -1,9 +1,9 @@
 # IMPORTS
-from argparse import ArgumentParser
 import os
 import shutil
 import subprocess
 import sys
+from argparse import ArgumentParser
 
 from retdec_config_patch.config import Config
 from retdec_config_patch.misc import get_retdec_decompiler_config_path
