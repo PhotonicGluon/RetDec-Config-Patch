@@ -6,8 +6,6 @@ on:
       - main
       - dev-release
       - release
-    paths:
-      - "**.py"
 
 jobs:
   run-tests:
