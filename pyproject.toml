@@ -7,7 +7,7 @@ profile = "black"
 
 [tool.poetry]
 name = "retdec-config-patch"
-version = "0.2.0.dev1"
+version = "0.2.0.dev2"
 description = "Patch for the broken `--config` option in `retdec-decompiler`"
 license = "MIT"
 authors = ["PhotonicGluon <25820201+PhotonicGluon@users.noreply.github.com>"]
