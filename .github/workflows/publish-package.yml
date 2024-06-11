@@ -9,7 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  deploy:
+  publish-pypi:
+    name: Publish to PyPi
     runs-on: ubuntu-latest
     environment:
       name: pypi

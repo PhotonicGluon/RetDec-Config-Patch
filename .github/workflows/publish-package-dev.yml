@@ -1,15 +1,20 @@
 name: Publish Python Package (DEV)
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Run Tests"]
+    types: 
+      - completed
     branches:
       - "dev-release"
+      - "release"
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  publish-test-pypi:
+    name: Publish to Test PyPi
     runs-on: ubuntu-latest
     environment:
       name: testpypi
