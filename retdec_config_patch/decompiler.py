@@ -1,11 +1,11 @@
 # IMPORTS
+import json
 import os
 import shutil
-import json
 import subprocess
 import sys
-from argparse import ArgumentParser
 import time
+from argparse import ArgumentParser
 from typing import Optional
 
 from filelock import FileLock
@@ -30,7 +30,7 @@ def await_deletion(filepath: os.PathLike, polling_interval: float = 0.25):
     if os.path.isfile(filepath):
         while os.path.isfile(filepath):
             time.sleep(polling_interval)
-            
+
         time.sleep(4 * polling_interval)  # The 4 is arbitrary; this is to allow others to catch up
 
 
@@ -208,9 +208,7 @@ class Decompiler:
 
         # Otherwise, we first have to wait for the process info file to be deleted (i.e., we are free to change the
         # config file)
-        print("---> AWAITING PROCESS INFO DELETION")
         await_deletion(self.process_info_file, polling_interval=POLLING_INTERVAL)
-        print("---> SAW PROCESS INFO DELETION")
 
         # Then update the process information
         self.process_info_lock.acquire()
@@ -242,7 +240,6 @@ class Decompiler:
         # Check how many processes are still using the current configuration file
         self.process_info_lock.acquire()
         proc_info = ProcessInfo.load(self.process_info_file)
-        print("=====> PROC INFO", proc_info)
         proc_info.num_processes -= 1
         proc_info.save()
         if proc_info.num_processes > 0:
@@ -251,7 +248,6 @@ class Decompiler:
             return
 
         # Otherwise, we are the last process using this, so we are in charge of reverting the decompiler config
-        print("=====> REVERTING CONFIG")
         config_file = get_retdec_decompiler_config_path()
         old_config = config_file + "-old"
 
@@ -259,7 +255,6 @@ class Decompiler:
         os.rename(old_config, config_file)
 
         # Delete the process info file and release its lock
-        print("=====> DELETION AND CLEANUP")
         proc_info.delete()
         self.process_info_lock.release()
 
@@ -307,14 +302,6 @@ class Decompiler:
                 command.append(val)
 
         try:
-            # TODO: REMOVE
-            import time, random
-
-            sleeptime = random.random()*2 + 0.5
-            print("SLEEP START", sleeptime)
-            time.sleep(sleeptime)
-            print("SLEEP END")
-
             subprocess.run(command)
         finally:
             # Reset configuration file
