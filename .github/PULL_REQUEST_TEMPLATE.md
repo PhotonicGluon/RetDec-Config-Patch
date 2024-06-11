@@ -1,3 +1,8 @@
+---
+name: Pull Request
+about: Create a pull request
+---
+
 # Pull Request
 
 ## Description
