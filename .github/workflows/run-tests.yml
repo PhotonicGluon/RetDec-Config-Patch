@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - main
-      - tests
+      - dev-release
+      - release
+    paths:
+      - "**.py"
 
 jobs:
   run-tests:
@@ -13,30 +16,30 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install RetDec
-      run: |
-        sudo apt-get update
-        sudo apt-get install wget -y
-        wget https://github.com/avast/retdec/releases/download/v5.0/RetDec-v5.0-Linux-Release.tar.xz
-        sudo mkdir -p /usr/share/retdec
-        sudo tar -xf RetDec-v5.0-Linux-Release.tar.xz -C /usr/share/retdec
-        echo "PATH=/usr/share/retdec/bin:$PATH" >> $GITHUB_ENV
-    - name: Install Poetry
-      uses: abatilo/actions-poetry@v2
-    - name: Install Project Dependencies
-      run: poetry install
-    - name: Test with Pytest
-      run: poetry run pytest --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml --cov=retdec_config_patch
-    - name: Upload Pytest Test Results
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest-results-${{ matrix.python-version }}
-        path: junit/test-results-${{ matrix.python-version }}.xml
-      # Use always() to always run this step to publish test results when there are test failures
-      if: ${{ always() }}
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install RetDec
+        run: |
+          sudo apt-get update
+          sudo apt-get install wget -y
+          wget https://github.com/avast/retdec/releases/download/v5.0/RetDec-v5.0-Linux-Release.tar.xz
+          sudo mkdir -p /usr/share/retdec
+          sudo tar -xf RetDec-v5.0-Linux-Release.tar.xz -C /usr/share/retdec
+          echo "PATH=/usr/share/retdec/bin:$PATH" >> $GITHUB_ENV
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+      - name: Install Project Dependencies
+        run: poetry install
+      - name: Test with Pytest
+        run: poetry run pytest --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml --cov=retdec_config_patch
+      - name: Upload Pytest Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results-${{ matrix.python-version }}
+          path: junit/test-results-${{ matrix.python-version }}.xml
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
