@@ -53,7 +53,7 @@ class Config:
 
     # Public methods
     @classmethod
-    def load(cls, filepath: os.PathLike[str] = CONFIG_FILE) -> "Config":
+    def load(cls, filepath: os.PathLike = CONFIG_FILE) -> "Config":
         """
         Loads configuration from a JSON file.
 
@@ -74,7 +74,7 @@ class Config:
 
         return config
 
-    def save(self, filepath: os.PathLike[str] = CONFIG_FILE):
+    def save(self, filepath: os.PathLike = CONFIG_FILE):
         """
         Saves configuration to a JSON file.
 
@@ -85,7 +85,8 @@ class Config:
         with open(filepath, "w") as f:
             json.dump(config_dict, f)
 
-    def remove(self, filepath: os.PathLike[str] = CONFIG_FILE):
+    @staticmethod
+    def remove(filepath: os.PathLike = CONFIG_FILE):
         """
         Removes the configuration file.
 
@@ -98,12 +99,3 @@ class Config:
         values = list(self._serialize().values())
         is_none = [value is None for value in values]
         return all(is_none)
-
-
-# DEBUG CODE
-if __name__ == "__main__":
-    config = Config.load("retdec_config_patch/config.json")
-    print(config)
-    config.retdec_binary = "testing-1234"
-    print(config)
-    config.save("retdec_config_patch/config.json")
