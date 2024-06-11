@@ -17,7 +17,7 @@ def gen_random_string(length: int = 8) -> str:
     return "".join(random.choices(string.ascii_letters, k=length))
 
 
-def get_hash_of_file(file: os.PathLike[str]) -> str:
+def get_file_hash(file: os.PathLike[str]) -> str:
     """
     Gets the SHA256 hash of the file.
 
