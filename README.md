@@ -18,7 +18,7 @@ You can choose to install the patch from package or building from scratch. In ei
 
 ### Installing from Package
 
-The `retdec-config-patch` is available on PyPi. It is important to note that the package is to be installed **system-wide** so that the patch binary can be accessed across the whole system.
+The [`retdec-config-patch`](https://pypi.org/project/retdec-config-patch/) is available on PyPi. It is important to note that the package is to be installed **system-wide** so that the patch binary can be accessed across the whole system.
 
 ```bash
 pip install retdec-config-patch
@@ -30,7 +30,7 @@ Troubleshooting:
 
 ### Building the Package
 
-One could also build the package from scratch. This is particularly useful for contributions.
+One could also build the package from scratch. This is particularly useful for development and contributions.
 
 1. Clone the repository.
 2. If you are using VSCode, set up the devcontainer.
@@ -58,6 +58,12 @@ This will perform the necessary checks before implementing the patch.
 
 Once the patch is activated, you can use `retdec-decompiler` as per normal. The only difference is that the `--config` option works properly now.
 
+If the patch is activated, a `Using patched RetDec decompiler.` message should appear before every run of `retdec-decompiler`. See the help message provided by RetDec by running
+
+```bash
+retdec-decompiler --help
+```
+
 ### Deactivating the Patch
 
 If you want to deactivate the patch, run
@@ -65,6 +71,14 @@ If you want to deactivate the patch, run
 ```bash
 undo-retdec-config-patch
 ```
+
+Check that the patch was deactivated by running
+
+```bash
+retdec-decompiler
+```
+
+The `Using patched RetDec decompiler.` message should **no longer appear**.
 
 ### License
 
