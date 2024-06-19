@@ -5,6 +5,7 @@ import sys
 import click
 
 from retdec_config_patch.checks import (
+    is_admin,
     is_config_file_editable,
     is_patcher_available_globally,
     is_retdec_available,
@@ -30,6 +31,13 @@ def set_up_patch():
 
     # Check if patch works
     click.secho("Checking whether patch would work...", fg="cyan")
+
+    if not is_admin():
+        click.echo(
+            "Administrator access needed to modify executable files. "
+            + click.style("The patch will NOT work.", fg="red")
+        )
+        sys.exit(1)
 
     if not is_retdec_available():
         click.echo("RetDec doesn't seem to be installed. " + click.style("The patch will NOT work.", fg="red"))
