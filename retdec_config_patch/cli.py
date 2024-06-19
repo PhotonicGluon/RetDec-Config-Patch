@@ -115,4 +115,5 @@ def retdec_decompiler_patched():
 
     click.secho("Using patched RetDec decompiler.", fg="green", bold=True)
     with Decompiler() as decompiler:
-        decompiler.execute()
+        return_code = decompiler.execute()
+    sys.exit(return_code)

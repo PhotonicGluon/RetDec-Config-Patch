@@ -259,11 +259,12 @@ class Decompiler:
         self.process_info_lock.release()
 
     # Public methods
-    def execute(self):
+    def execute(self) -> int:
         """
         Run the decompiler with the given arguments.
 
         :raises Exception: if the decompiler is not being run within a `with` block
+        :returns: the exit code
         """
 
         # Check that this is being run in a context
@@ -301,9 +302,12 @@ class Decompiler:
             if val is not None:
                 command.append(val)
 
+        return_code = -1
         try:
-            subprocess.run(command)
+            completed_process = subprocess.run(command)
+            return_code = completed_process.returncode
         finally:
             # Reset configuration file
             if config_file:
                 self._revert_config_file()
+            return return_code
