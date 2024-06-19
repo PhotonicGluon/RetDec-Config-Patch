@@ -1,0 +1,12 @@
+name: Run Tests on Main
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**.py"
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/run-tests.yml

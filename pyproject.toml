@@ -7,7 +7,7 @@ profile = "black"
 
 [tool.poetry]
 name = "retdec-config-patch"
-version = "0.2.0"
+version = "0.2.1"
 description = "Patch for the broken `--config` option in `retdec-decompiler`"
 license = "MIT"
 authors = ["PhotonicGluon <25820201+PhotonicGluon@users.noreply.github.com>"]
@@ -32,7 +32,7 @@ classifiers = [
 python = "^3.8"
 click = "~8.1.7"
 colorama = "~0.4.6"
-filelock = "~3.14.0"
+filelock = "~3.15.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "~8.2.2"
