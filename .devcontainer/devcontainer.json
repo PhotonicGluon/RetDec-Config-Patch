@@ -19,7 +19,6 @@
             "settings": {
                 "python.terminal.activateEnvInCurrentTerminal": true,
                 "python.defaultInterpreterPath": "/venv/bin/python",
-                "git.enabled": false,
                 "isort.check": true
             }
         }
