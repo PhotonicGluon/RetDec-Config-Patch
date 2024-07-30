@@ -1,4 +1,5 @@
 # IMPORTS
+import ctypes
 import os
 import re
 import subprocess
@@ -7,6 +8,23 @@ from retdec_config_patch.paths import get_retdec_decompiler_config_path, get_ret
 
 
 # FUNCTIONS
+def is_admin() -> bool:
+    """
+    Checks if the program is being run as an administrator.
+
+    :return: True if admin and False otherwise
+    """
+
+    is_admin = False
+    try:
+        is_admin = os.getuid() == 0
+    except AttributeError:
+        # We're on windows, maybe
+        is_admin = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    finally:
+        return is_admin
+
+
 def is_retdec_available() -> bool:
     """
     Checks if RetDec is available as an executable on the system PATH.

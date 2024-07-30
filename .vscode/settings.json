@@ -3,6 +3,7 @@
         "decompilation",
         "decompiler",
         "filelock",
+        "getuid",
         "retdec",
         "secho",
         "symlimked"
